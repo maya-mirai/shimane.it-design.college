@@ -1,1 +1,144 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAYA MIRAI｜説明会・個別相談予約</title>
+  <style>
+    :root{
+      --navy:#0B2D5C; --navy2:#071F42; --gold:#F4B400;
+      --bg:#F4F7FB; --card:#FFFFFF; --line:#D9E2F1;
+      --text:#0B1F3A; --muted:#64748B; --green:#16A34A;
+      --shadow:0 18px 45px rgba(11,45,92,.14);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Helvetica Neue",Arial,sans-serif;
+      background:linear-gradient(180deg,#EAF1FA 0%,#F7F9FC 42%,#F4F7FB 100%);
+      color:var(--text);
+    }
+    .hero{
+      background:linear-gradient(135deg,rgba(7,31,66,.98),rgba(11,45,92,.9));
+      color:white;padding:28px 18px 36px;position:relative;overflow:hidden;
+    }
+    .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 20%,rgba(244,180,0,.26),transparent 30%)}
+    .hero:after{content:"";position:absolute;width:430px;height:430px;right:-180px;top:-180px;border-radius:50%;background:rgba(255,255,255,.08)}
+    .hero-inner{max-width:1120px;margin:auto;position:relative;z-index:1}
+    .topbar{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:24px}
+    .brand{font-weight:900;letter-spacing:.08em;font-size:18px}
+    .lang{display:flex;gap:8px}
+    .lang button{border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:white;padding:9px 14px;border-radius:999px;font-weight:800;cursor:pointer}
+    .lang button.active{background:white;color:var(--navy)}
+    .hero h1{font-size:clamp(30px,5vw,56px);line-height:1.12;margin:0 0 12px;font-weight:900}
+    .hero p{font-size:clamp(15px,2.2vw,20px);line-height:1.8;margin:0;color:#EAF2FF}
+    .notice{
+      margin:22px 0 0;background:#FFF7DF;color:#513A00;border:1px solid #F5D06A;
+      border-radius:18px;padding:15px 18px;display:flex;gap:10px;align-items:flex-start;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);max-width:900px
+    }
+    .wrap{max-width:1120px;margin:-22px auto 70px;padding:0 18px;position:relative;z-index:2}
+    .grid{display:grid;grid-template-columns:1.58fr .82fr;gap:22px;align-items:start}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px}
+    .step-title{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+    .badge{background:var(--navy);color:white;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:900;letter-spacing:.04em;min-width:76px;text-align:center}
+    h2{font-size:24px;margin:0;font-weight:900}.sub{color:var(--muted);font-size:14px;line-height:1.65;margin-top:6px}
+    .choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .choice{border:2px solid var(--line);border-radius:18px;padding:18px;background:#FBFDFF;cursor:pointer;transition:.18s;min-height:86px}
+    .choice:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(11,45,92,.10)}
+    .choice.selected{border-color:var(--navy);background:#EEF5FF;box-shadow:0 0 0 4px rgba(11,45,92,.08)}
+    .choice b{display:block;font-size:17px;margin-bottom:6px}.choice span{color:var(--muted);font-size:13px;line-height:1.4}
+    .calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .navbtn{border:1px solid var(--line);background:white;border-radius:12px;padding:10px 14px;font-weight:900;cursor:pointer}
+    .cal{border:1px solid var(--line);border-radius:20px;padding:16px;background:#FBFDFF}
+    .week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+    .week div{text-align:center;color:#64748B;font-weight:900;font-size:13px;padding:8px}
+    .day{border:1px solid #DDE7F5;background:white;border-radius:14px;min-height:56px;display:flex;align-items:center;justify-content:center;font-weight:900;cursor:pointer;position:relative;color:var(--text)}
+    .day.muted{background:#EEF2F7;color:#A3AEC0;cursor:not-allowed;text-decoration:line-through}
+    .day.available:after{content:"";position:absolute;bottom:6px;width:6px;height:6px;border-radius:50%;background:var(--green)}
+    .day.selected{background:var(--navy);color:white;border-color:var(--navy)}
+    .inline-times{margin-top:14px;border:2px solid #C8D8F1;border-radius:20px;background:linear-gradient(180deg,#FFFFFF,#F7FAFF);padding:18px}
+    .inline-times h3{margin:0 0 12px;font-size:19px}
+    .time-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+    .time-btn{border:1px solid var(--line);background:white;border-radius:999px;padding:12px 16px;font-weight:900;cursor:pointer;font-size:15px}
+    .time-btn.selected{background:var(--navy);color:white;border-color:var(--navy)}
+    .add-btn,.submit-btn{width:100%;border:0;border-radius:16px;padding:17px 18px;font-size:17px;font-weight:900;cursor:pointer;transition:.18s}
+    .add-btn{background:#93A1B6;color:white}.add-btn.ready{background:var(--navy)}
+    .submit-btn{background:linear-gradient(135deg,var(--navy),#174B91);color:white;box-shadow:0 14px 28px rgba(11,45,92,.22)}
+    .no-date-box{margin-top:16px;border:2px dashed #C8D8F1;border-radius:20px;background:#fff;padding:18px}
+    .side{position:sticky;top:18px}.selected-list{display:grid;gap:12px}
+    .slot{border:1px solid var(--line);border-radius:18px;padding:15px;background:#FBFDFF;display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .slot strong{display:block;margin-bottom:3px}.slot .empty{color:#94A3B8}
+    .slot button{border:0;background:#FFE8E8;color:#B42318;border-radius:999px;width:32px;height:32px;font-weight:900;cursor:pointer}
+    label{display:block;font-weight:900;margin:14px 0 7px}
+    input,select,textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:14px 15px;font-size:16px;background:white;outline:none}
+    textarea{min-height:110px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 14px}
+    .flow{display:grid;gap:10px;color:#334155}.flow div{display:flex;gap:10px;align-items:flex-start;background:#F8FAFC;border:1px solid var(--line);border-radius:14px;padding:12px}
+    .hidden{display:none!important}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#062047;color:white;padding:14px 18px;border-radius:999px;box-shadow:0 14px 36px rgba(0,0,0,.25);font-weight:900;display:none;z-index:10}
+    .footer{text-align:center;color:#64748B;padding:32px 18px 60px}
+    @media(max-width:840px){.grid{grid-template-columns:1fr}.side{position:static}.choices{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.cal{padding:10px}.week,.days{gap:5px}.day{min-height:46px;border-radius:12px}.card{padding:18px}}
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="topbar">
+        <div class="brand">MAYA MIRAI RESERVATION</div>
+        <div class="lang"><button class="active" onclick="setLang('ja')" id="btnJa">日本語</button><button onclick="setLang('en')" id="btnEn">English</button></div>
+      </div>
+      <h1 data-ja="説明会・個別相談予約" data-en="Information Session & Consultation Reservation">説明会・個別相談予約</h1>
+      <p data-ja="集団説明会・個別相談を、対面またはオンラインでご予約いただけます。" data-en="Book a group information session or an individual consultation, in person or online.">集団説明会・個別相談を、対面またはオンラインでご予約いただけます。</p>
+      <div class="notice"><span>✉️</span><div data-ja="このページでは予約リクエストを受け付けます。送信後、担当者が確認し、確定メールをお送りします。" data-en="This page accepts reservation requests. After submission, our staff will review your request and send a confirmation email.">このページでは予約リクエストを受け付けます。送信後、担当者が確認し、確定メールをお送りします。</div></div>
+    </div>
+  </section>
+  <main class="wrap">
+    <div class="grid">
+      <div>
+        <section class="card"><div class="step-title"><div class="badge">STEP 1</div><div><h2 data-ja="予約内容を選んでください" data-en="Choose your reservation type">予約内容を選んでください</h2><div class="sub" data-ja="まず、集団説明会または個別相談を選択してください。" data-en="Please select either a group session or individual consultation.">まず、集団説明会または個別相談を選択してください。</div></div></div>
+          <div class="choices" id="typeChoices">
+            <div class="choice selected" onclick="selectType('group', this)"><b data-ja="👥 集団説明会" data-en="👥 Group Session">👥 集団説明会</b><span data-ja="学校・会場・オフィス・オンラインで実施" data-en="Held at your school, venue, office, or online">学校・会場・オフィス・オンラインで実施</span></div>
+            <div class="choice" onclick="selectType('individual', this)"><b data-ja="👤 個別相談" data-en="👤 Individual Consultation">👤 個別相談</b><span data-ja="個人学生向け。新宿オフィスまたはオンライン" data-en="For individual students. Shinjuku office or online">個人学生向け。新宿オフィスまたはオンライン</span></div>
+          </div></section>
+        <section class="card"><div class="step-title"><div class="badge">STEP 2</div><div><h2 data-ja="開催方法・場所" data-en="Meeting method / location">開催方法・場所</h2><div class="sub" data-ja="選択内容に合わせて利用できる場所が変わります。" data-en="Available locations change depending on the reservation type.">選択内容に合わせて利用できる場所が変わります。</div></div></div><div class="choices" id="placeChoices"></div></section>
+        <section class="card"><div class="step-title"><div class="badge">STEP 3</div><div><h2 data-ja="希望日時を選んでください" data-en="Select preferred dates and times">希望日時を選んでください</h2><div class="sub" data-ja="日付を押すと、その真下に空いている時間が表示されます。最大3件まで追加できます。" data-en="Tap a date and available times will appear directly below it. You can add up to three choices.">日付を押すと、その真下に空いている時間が表示されます。最大3件まで追加できます。</div></div></div>
+          <div class="calendar-head"><button class="navbtn" onclick="changeMonth(-1)">‹</button><h2 id="monthTitle" style="font-size:22px"></h2><button class="navbtn" onclick="changeMonth(1)">›</button></div>
+          <div class="cal"><div class="week" id="weekLabels"></div><div class="days" id="days"></div><div class="inline-times" id="inlineTimes"></div>
+            <div class="no-date-box"><label style="display:flex;gap:10px;align-items:flex-start;margin:0;font-weight:900;cursor:pointer;"><input type="checkbox" id="noDateWithin3Months" onchange="toggleNoDate()" style="width:20px;height:20px;margin-top:2px;accent-color:#0B2D5C;"><span data-ja="3か月以内に希望日がない場合はこちら" data-en="If there is no suitable date within the next 3 months, check here">3か月以内に希望日がない場合はこちら</span></label>
+              <div id="noDateDetailsWrap" class="hidden" style="margin-top:14px;"><label data-ja="ご希望時期・曜日・時間帯を必ずご記入ください *" data-en="Please enter your preferred month, weekday, and time period *">ご希望時期・曜日・時間帯を必ずご記入ください *</label><textarea id="noDateDetails" placeholder="例：10月以降を希望／平日の午後希望／水曜日 13:00〜16:00希望"></textarea><div class="sub" data-ja="※この欄を選択した場合、希望内容の入力が必須です。" data-en="If this option is selected, this field is required.">※この欄を選択した場合、希望内容の入力が必須です。</div></div>
+            </div>
+          </div></section>
+        <section class="card"><div class="step-title"><div class="badge">STEP 4</div><div><h2 data-ja="学校・申込者情報" data-en="School / applicant information">学校・申込者情報</h2></div></div>
+          <div class="form-grid"><div><label data-ja="学校名 / お名前 *" data-en="School name / Name *">学校名 / お名前 *</label><input id="schoolName" placeholder="例：〇〇日本語学校"></div><div><label data-ja="ご担当者名" data-en="Contact person">ご担当者名</label><input id="contactName" placeholder="例：山田 太郎"></div><div><label data-ja="メールアドレス *" data-en="Email *">メールアドレス *</label><input id="email" type="email" placeholder="example@mail.com"></div><div><label data-ja="電話番号" data-en="Phone">電話番号</label><input id="phone" placeholder="+81-"></div><div><label data-ja="参加予定人数" data-en="Expected participants">参加予定人数</label><select id="participants"><option>未定</option><option>1名（個別）</option><option>10名以内</option><option>20名以内</option><option>30名以上</option></select></div><div><label data-ja="国" data-en="Country">国</label><input id="country" placeholder="Japan / Mongolia / etc."></div></div>
+          <label data-ja="ご質問・ご要望" data-en="Questions / requests">ご質問・ご要望</label><textarea id="message" placeholder="説明してほしい内容など"></textarea>
+        </section>
+        <section class="card"><button class="submit-btn" onclick="submitReservation()" data-ja="予約リクエストを送信する" data-en="Submit reservation request">予約リクエストを送信する</button><div class="sub" style="margin-top:12px" data-ja="送信後、受付メールが届きます。担当者が確認後、確定メールをお送りします。" data-en="After submission, you will receive a receipt email. Our staff will send a confirmation email after review.">送信後、受付メールが届きます。担当者が確認後、確定メールをお送りします。</div></section>
+      </div>
+      <aside class="side"><section class="card"><div class="step-title"><div class="badge">希望</div><div><h2 data-ja="あなたの希望日時" data-en="Your preferred times">あなたの希望日時</h2><div class="sub" data-ja="上から第1〜第3希望として扱います。" data-en="Choices are treated as 1st to 3rd preference.">上から第1〜第3希望として扱います。</div></div></div><div class="selected-list" id="selectedList"></div></section>
+        <section class="card"><h2 data-ja="ご予約後の流れ" data-en="After your request">ご予約後の流れ</h2><div class="flow" style="margin-top:14px"><div><b>①</b><span data-ja="受付メールが届きます" data-en="You will receive a request email">受付メールが届きます</span></div><div><b>②</b><span data-ja="担当者が日程を確認します" data-en="Our staff checks the schedule">担当者が日程を確認します</span></div><div><b>③</b><span data-ja="確定メールをお送りします" data-en="A confirmation email will be sent">確定メールをお送りします</span></div></div></section>
+      </aside>
+    </div>
+  </main>
+  <div class="toast" id="toast"></div><footer class="footer">MAYA MIRAI｜z.tsogkhuu@mayass.com</footer>
+<script>
+const GAS_ENDPOINT = ''; // Apps ScriptのウェブアプリURLをここに貼ります
+const state={lang:'ja',type:'group',place:'school',selectedDate:null,selectedTime:null,choices:[],base:new Date(2026,6,1)};
+const places={group:[{v:'school',ja:'🏫 学校で説明する',en:'🏫 At your school',subJa:'貴校へ訪問して説明会を実施',subEn:'We visit your school'},{v:'venue',ja:'📍 指定会場',en:'📍 Designated venue',subJa:'指定された会場で実施',subEn:'Held at a designated venue'},{v:'office',ja:'🏢 新宿オフィス',en:'🏢 Shinjuku office',subJa:'MAYA MIRAIオフィスで実施',subEn:'Held at MAYA MIRAI office'},{v:'online',ja:'💻 オンライン',en:'💻 Online',subJa:'Zoom等で実施',subEn:'Held via Zoom'}],individual:[{v:'office',ja:'🏢 新宿オフィス',en:'🏢 Shinjuku office',subJa:'個人学生向けの個別相談',subEn:'For individual student consultation'},{v:'online',ja:'💻 オンライン',en:'💻 Online',subJa:'Zoom等で個別相談',subEn:'Individual consultation via Zoom'}]};
+const availability={'2026-07-07':['10:00〜11:00','14:00〜15:00'],'2026-07-08':['13:00〜14:00','15:00〜16:00'],'2026-07-09':['10:00〜11:00','16:00〜17:00'],'2026-07-10':['11:00〜12:00','14:00〜15:00'],'2026-07-13':['10:00〜11:00','13:00〜14:00','15:00〜16:00'],'2026-07-15':['10:00〜11:00','14:00〜15:00','16:00〜17:00'],'2026-07-16':['13:00〜14:00','15:00〜16:00'],'2026-07-17':['10:00〜11:00'],'2026-07-20':['14:00〜15:00','16:00〜17:00'],'2026-07-21':['10:00〜11:00','13:00〜14:00'],'2026-07-22':['10:00〜11:00','14:00〜15:00'],'2026-07-23':['11:00〜12:00','15:00〜16:00'],'2026-07-24':['10:00〜11:00','16:00〜17:00'],'2026-07-27':['13:00〜14:00','15:00〜16:00'],'2026-07-29':['10:00〜11:00','14:00〜15:00','16:00〜17:00'],'2026-08-03':['10:00〜11:00','14:00〜15:00'],'2026-08-05':['13:00〜14:00','15:00〜16:00'],'2026-08-12':['10:00〜11:00','14:00〜15:00'],'2026-08-19':['13:00〜14:00','16:00〜17:00'],'2026-08-26':['10:00〜11:00','15:00〜16:00'],'2026-09-02':['10:00〜11:00','14:00〜15:00'],'2026-09-09':['13:00〜14:00','15:00〜16:00'],'2026-09-16':['10:00〜11:00'],'2026-09-24':['14:00〜15:00','16:00〜17:00']};
+function pad(n){return String(n).padStart(2,'0')} function ymd(d){return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`} function t(ja,en){return state.lang==='ja'?ja:en}
+function formatDate(key){const [y,m,d]=key.split('-').map(Number);const date=new Date(y,m-1,d);const wJa=['日','月','火','水','木','金','土'][date.getDay()];const wEn=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][date.getDay()];return state.lang==='ja'?`${m}月${d}日（${wJa}）`:`${y}-${pad(m)}-${pad(d)} (${wEn})`}
+function setLang(lang){state.lang=lang;btnJa.classList.toggle('active',lang==='ja');btnEn.classList.toggle('active',lang==='en');document.querySelectorAll('[data-ja]').forEach(el=>el.textContent=el.getAttribute(`data-${lang}`));renderPlaces();renderCalendar();renderSelected();renderTimes(state.selectedDate)}
+function selectType(type,el){state.type=type;state.place=places[type][0].v;document.querySelectorAll('#typeChoices .choice').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');renderPlaces()}
+function renderPlaces(){placeChoices.innerHTML='';places[state.type].forEach(p=>{const div=document.createElement('div');div.className='choice'+(p.v===state.place?' selected':'');div.onclick=()=>{state.place=p.v;renderPlaces()};div.innerHTML=`<b>${state.lang==='ja'?p.ja:p.en}</b><span>${state.lang==='ja'?p.subJa:p.subEn}</span>`;placeChoices.appendChild(div)})}
+function changeMonth(diff){const n=new Date(state.base.getFullYear(),state.base.getMonth()+diff,1);if(n<new Date(2026,6,1)||n>new Date(2026,8,1))return;state.base=n;state.selectedDate=null;state.selectedTime=null;renderCalendar();renderTimes(null)}
+function renderCalendar(){const y=state.base.getFullYear(),m=state.base.getMonth();monthTitle.textContent=state.lang==='ja'?`${y}年 ${m+1}月`:`${state.base.toLocaleString('en-US',{month:'long'})} ${y}`;weekLabels.innerHTML=(state.lang==='ja'?['日','月','火','水','木','金','土']:['Sun','Mon','Tue','Wed','Thu','Fri','Sat']).map(w=>`<div>${w}</div>`).join('');days.innerHTML='';const first=new Date(y,m,1).getDay(),last=new Date(y,m+1,0).getDate();for(let i=0;i<first;i++)days.appendChild(document.createElement('div'));for(let d=1;d<=last;d++){const key=ymd(new Date(y,m,d));const div=document.createElement('div');const has=availability[key]?.length;div.className='day '+(has?'available':'muted')+(state.selectedDate===key?' selected':'');div.textContent=d;if(has)div.onclick=()=>{state.selectedDate=key;state.selectedTime=null;renderCalendar();renderTimes(key,true)};days.appendChild(div)}}
+function renderTimes(key,scroll){if(!key){inlineTimes.innerHTML=`<h3>${t('日付を選択してください','Please select a date')}</h3><div class="sub">${t('選択した日付の空き時間がここに表示されます。','Available times for the selected date will be shown here.')}</div>`;return}const times=availability[key]||[];inlineTimes.innerHTML=`<h3>📅 ${formatDate(key)} ${t('の空き時間',' available times')}</h3><div class="time-row">${times.map(tm=>`<button class="time-btn ${state.selectedTime===tm?'selected':''}" onclick="selectTime('${tm}')">${tm}</button>`).join('')}</div><button class="add-btn ${state.selectedTime?'ready':''}" onclick="addChoice()">＋ ${t('希望日時に追加','Add preferred time')}</button>`;if(scroll)inlineTimes.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function selectTime(tm){state.selectedTime=tm;renderTimes(state.selectedDate)} function addChoice(){if(!state.selectedDate||!state.selectedTime){showToast(t('時間を選択してください','Please select a time'));return}if(state.choices.length>=3){showToast(t('最大3件まで選択できます','You can select up to three choices'));return}if(state.choices.some(c=>c.date===state.selectedDate&&c.time===state.selectedTime)){showToast(t('すでに追加されています','Already added'));return}state.choices.push({date:state.selectedDate,time:state.selectedTime});renderSelected();showToast(t('希望日時を追加しました','Preferred time added'))}
+function removeChoice(i){state.choices.splice(i,1);renderSelected()} function renderSelected(){const labels=state.lang==='ja'?['🥇 第1希望','🥈 第2希望','🥉 第3希望']:['🥇 1st choice','🥈 2nd choice','🥉 3rd choice'];selectedList.innerHTML='';for(let i=0;i<3;i++){const c=state.choices[i];const div=document.createElement('div');div.className='slot';div.innerHTML=c?`<div><strong>${labels[i]}</strong><div>${formatDate(c.date)}<br>${c.time}</div></div><button onclick="removeChoice(${i})">×</button>`:`<div><strong>${labels[i]}</strong><div class="empty">${t('未選択','Not selected')}</div></div>`;selectedList.appendChild(div)}}
+function toggleNoDate(){noDateDetailsWrap.classList.toggle('hidden',!noDateWithin3Months.checked)}
+function showToast(msg){toast.textContent=msg;toast.style.display='block';setTimeout(()=>toast.style.display='none',2200)}
+function submitReservation(){const noDate=noDateWithin3Months.checked,details=noDateDetails.value.trim();if(state.choices.length===0&&!noDate){showToast(t('希望日時を選ぶか、「3か月以内に希望日がない」を選択してください','Please select a preferred time or check the no suitable date option'));return}if(noDate&&!details){showToast(t('希望時期を必ず入力してください','Please enter your preferred schedule'));noDateDetails.focus();return}if(!schoolName.value||!email.value){showToast(t('学校名/お名前とメールを入力してください','Please enter name and email'));return}const data={reservationType:state.type==='group'?'集団説明会':'個別相談',place:state.place,choice1:state.choices[0]?formatDate(state.choices[0].date)+' '+state.choices[0].time:'',choice2:state.choices[1]?formatDate(state.choices[1].date)+' '+state.choices[1].time:'',choice3:state.choices[2]?formatDate(state.choices[2].date)+' '+state.choices[2].time:'',noDateWithin3Months:noDate?'はい':'',noDateDetails:details,schoolName:schoolName.value,contactName:contactName.value,email:email.value,phone:phone.value,participants:participants.value,country:country.value,message:message.value};if(!GAS_ENDPOINT){showToast(t('デモ送信完了：Apps Script URLを入れると本送信できます','Demo completed: add Apps Script URL to enable sending'));return}fetch(GAS_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});showToast(t('予約リクエストを送信しました','Reservation request submitted'))}
+renderPlaces();renderCalendar();renderTimes(null);renderSelected();
+</script>
+</body>
+</html>
