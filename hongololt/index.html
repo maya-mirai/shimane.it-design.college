@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Шиманэ IT Дизайн Коллеж · Хөнгөлөлт тооцоолуур 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Noto+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maya-teal:#52DDD6; --deep-teal:#009CB4; --navy:#0A2F6E; --sky:#1CB4E6;
+    --pink:#E8508E; --cream:#FCF2D2; --white:#fff; --lgray:#F2F5F7; --tgray:#5A6470; --line:#DDE4EA;
+    --head:"Montserrat","Noto Sans JP",sans-serif; --body:"Noto Sans","Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);color:var(--navy);background:var(--lgray);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px 48px}
+  header{background:var(--navy);color:#fff;padding:28px 20px 34px;position:relative;overflow:hidden}
+  header::after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:var(--maya-teal);opacity:.18}
+  header .in{max-width:640px;margin:0 auto;position:relative}
+  .eyebrow{display:inline-block;background:var(--deep-teal);color:#fff;font:700 12px var(--head);letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:20px}
+  h1{font:800 26px/1.2 var(--head);margin:14px 0 8px}
+  header p{color:#cfe0f2;font-size:14px}
+  .bar{width:72px;height:6px;border-radius:3px;background:var(--maya-teal);margin-top:16px}
+  .card{background:#fff;border-radius:18px;padding:20px;margin-top:16px;box-shadow:0 6px 20px rgba(10,47,110,.06)}
+  .step{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .num{width:30px;height:30px;border-radius:50%;background:var(--maya-teal);color:var(--navy);font:800 15px var(--head);display:flex;align-items:center;justify-content:center;flex:none}
+  h2{font:800 17px var(--head)}
+  .q{font-weight:700;font-size:14px;margin:14px 0 8px}
+  .q small{font-weight:500;color:var(--tgray)}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{position:relative}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt span{display:block;padding:10px 14px;border:2px solid var(--line);border-radius:12px;font-size:14px;font-weight:500;cursor:pointer;background:#fff;transition:.15s}
+  .opt input:checked+span{border-color:var(--deep-teal);background:#E6F7F9;color:var(--navy);font-weight:700}
+  .opt input:focus-visible+span{outline:3px solid var(--sky);outline-offset:2px}
+  .hint{font-size:12.5px;color:var(--tgray);margin-top:8px}
+  .warn{font-size:13px;color:#8a4b00;background:#FFF4E0;border-radius:10px;padding:8px 12px;margin-top:10px;display:none}
+  .btn{display:block;width:100%;border:0;border-radius:14px;padding:16px;font:800 17px var(--head);cursor:pointer;margin-top:20px;background:var(--deep-teal);color:#fff}
+  .btn:active{transform:translateY(1px)}
+  .ghost{background:#fff;color:var(--deep-teal);border:2px solid var(--deep-teal);font-size:15px;padding:12px;margin-top:10px}
+  #result{display:none}
+  .hero{background:var(--navy);color:#fff;border-radius:18px;padding:22px 20px;margin-top:16px}
+  .hero .lbl{font-size:13px;color:#cfe0f2}
+  .hero .big{font:800 40px/1.1 var(--head);color:var(--maya-teal);margin:4px 0}
+  .hero .sub{font-size:14px}
+  .hero .sub b{font-family:var(--head)}
+  .row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .row:last-child{border-bottom:0}
+  .row .v{font:700 15px var(--head);white-space:nowrap;text-align:right}
+  .row .v.minus{color:var(--deep-teal)}
+  .row.total{font-weight:700}
+  .row.total .v{font-size:18px}
+  .tag{display:inline-block;font:700 11px var(--body);padding:2px 8px;border-radius:8px;margin-left:6px;vertical-align:1px}
+  .tag.ok{background:#E6F7F9;color:var(--deep-teal)}
+  .tag.maybe{background:#FDE9F1;color:var(--pink)}
+  .sect{font:800 14px var(--head);margin:18px 0 4px;color:var(--navy)}
+  .sect:first-child{margin-top:0}
+  .muted{color:var(--tgray);font-size:12.5px}
+  .empty{color:var(--tgray);font-size:14px;padding:8px 0}
+  .cta{background:var(--deep-teal);color:#fff;border-radius:18px;padding:20px;margin-top:16px}
+  .cta h3{font:800 18px var(--head);margin-bottom:6px}
+  .cta p{font-size:14px;color:#e2f6f8}
+  .links{display:grid;gap:8px;margin-top:14px}
+  .links a{display:flex;justify-content:space-between;align-items:center;background:#fff;color:var(--navy);text-decoration:none;border-radius:12px;padding:12px 14px;font-weight:700;font-size:14px}
+  .links a span{color:var(--tgray);font-weight:500;font-size:13px}
+  .copied{display:none;text-align:center;font-size:13px;color:var(--deep-teal);margin-top:6px}
+  footer{font-size:12px;color:var(--tgray);margin-top:22px;line-height:1.6}
+
+  .lead{background:#fff;border-radius:18px;padding:20px;margin-top:16px;border:2px solid var(--maya-teal)}
+  .lead h3{font:800 18px var(--head);margin-bottom:4px}
+  .lead p{font-size:14px;color:var(--tgray)}
+  .lead label{display:block;font-weight:700;font-size:14px;margin:12px 0 6px}
+  .lead label small{font-weight:500;color:var(--tgray)}
+  .lead input[type=text],.lead input[type=tel]{width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:12px;font:500 16px var(--body);color:var(--navy)}
+  .lead input:focus{outline:none;border-color:var(--deep-teal)}
+  .err{color:var(--pink);font-size:13px;margin-top:6px;display:none}
+  .done{display:none;background:#E6F7F9;border-radius:12px;padding:14px;margin-top:12px;font-weight:700;color:var(--navy)}
+  .consent{font-size:12px;color:var(--tgray);margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <div class="in">
+    <span class="eyebrow" id="eyebrow">2027 оны элсэлт</span>
+    <h1>Шиманэ IT Дизайн Коллеж<br>Хөнгөлөлт тооцоолуур</h1>
+    <p>6 асуултад хариулаад 1, 2-р жилийн төлбөрөө хэр хэмжээгээр буулгаж болохыг шууд хараарай. Нэр, утас оруулах шаардлагагүй.</p>
+    <div class="bar"></div>
+  </div>
+</header>
+
+<div class="wrap">
+<form id="f" novalidate>
+
+  <div class="card">
+    <div class="step"><div class="num">1</div><h2>Аль ангийг сонирхож байна вэ?</h2></div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="course" value="it" checked><span>IT бизнес</span></label>
+      <label class="opt"><input type="radio" name="course" value="design"><span>Визуал дизайн</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="step"><div class="num">2</div><h2>Япон хэлний түвшин, ирц</h2></div>
+    <div class="q">JLPT-д тэнцсэн түвшин</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="jlpt" value="none" checked><span>N3 ба түүнээс доош</span></label>
+      <label class="opt"><input type="radio" name="jlpt" value="n2"><span>N2</span></label>
+      <label class="opt"><input type="radio" name="jlpt" value="n1"><span>N1</span></label>
+    </div>
+    <div class="q">Хэлний сургуулийн ирц 95%-иас дээш үү? <small>(сургуулийн ирцийн гэрчилгээгээр шалгана)</small></div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="att" value="yes" checked><span>Тийм, 95%+</span></label>
+      <label class="opt"><input type="radio" name="att" value="no"><span>Үгүй / мэдэхгүй</span></label>
+    </div>
+    <div class="warn" id="attWarn">JLPT-ийн хөнгөлөлт зөвхөн ирц 95%-иас дээш үед олгогдоно.</div>
+  </div>
+
+  <div class="card">
+    <div class="step"><div class="num">3</div><h2>Сургуулийн танилцуулга (説明会)</h2></div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="visit" value="none" checked><span>Оролцоогүй</span></label>
+      <label class="opt"><input type="radio" name="visit" value="online"><span>Онлайнаар оролцсон / оролцоно</span></label>
+      <label class="opt"><input type="radio" name="visit" value="campus"><span>Сургууль дээр биечлэн очсон / очно</span></label>
+    </div>
+    <p class="hint">Аль нэг нь л тооцогдоно. Цаашид оролцох бол бүртгүүлсэн байх шаардлагатай.</p>
+  </div>
+
+  <div class="card">
+    <div class="step"><div class="num">4</div><h2>Зөвлөмж, найзтайгаа</h2></div>
+    <div class="q">Өргөдлөө хэзээ өгөх вэ? <small>(願書早期提出 · сургуульд ирсэн өдрөөр)</small></div>
+    <div class="opts" id="earlyOpts"></div>
+    <p class="hint" id="earlyHint"></p>
+    <div class="q">Хэлний сургуулиасаа албан ёсны зөвлөмж авах уу? <small>(指定校推薦 · тодорхой сургуулиудад)</small></div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="rec" value="no" checked><span>Үгүй / мэдэхгүй</span></label>
+      <label class="opt"><input type="radio" name="rec" value="yes"><span>Тийм</span></label>
+    </div>
+    <div class="q">Хамт элсэх найзын тоо</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="friend" value="0" checked><span>Байхгүй</span></label>
+      <label class="opt"><input type="radio" name="friend" value="1"><span>1 найз</span></label>
+      <label class="opt"><input type="radio" name="friend" value="2"><span>2 ба түүнээс дээш</span></label>
+    </div>
+    <div class="q">Ахлах курсийн оюутны санал (先輩紹介) байгаа юу?</div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="senpai" value="no" checked><span>Үгүй</span></label>
+      <label class="opt"><input type="radio" name="senpai" value="yes"><span>Тийм</span></label>
+    </div>
+    <p class="hint">Мөнгөн хөнгөлөлт биш, бичиг баримтын шалгалтад давуу эрх олгоно.</p>
+  </div>
+
+  <div class="card">
+    <div class="step"><div class="num">5</div><h2>Нэмэлт тэтгэлэг сонирхох уу?</h2></div>
+    <div class="q">Окуизумо хотын тэтгэлэг <small>(奥出雲町 · 2 жил тэнд амьдарч суралцах)</small></div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="local" value="yes" checked><span>Тийм</span></label>
+      <label class="opt"><input type="radio" name="local" value="no"><span>Үгүй</span></label>
+    </div>
+    <p class="hint">Энэ нь төлбөрийн хөнгөлөлт биш, тусдаа тэтгэлэг тул төлөх дүнгээс хасахгүй, тусад нь харуулна.</p>
+  </div>
+
+  <div class="card">
+    <div class="step"><div class="num">6</div><h2>2-р жил: 1-р жилдээ JLPT авах зорилго</h2></div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="goal" value="none" checked><span>Зорилгогүй / одоо байгаа түвшин хэвээр</span></label>
+      <label class="opt"><input type="radio" name="goal" value="n2"><span>N2 тэнцэх</span></label>
+      <label class="opt"><input type="radio" name="goal" value="n1"><span>N1 тэнцэх</span></label>
+    </div>
+    <p class="hint">1-р жилдээ тэнцэж, ирц 95%+ байвал 2-р жилийн төлбөрөөс N2: ¥50,000, N1: ¥100,000 хасагдана.</p>
+  </div>
+
+  <button class="btn" type="submit">Тооцоолох</button>
+</form>
+
+<section id="result" aria-live="polite">
+  <div class="hero">
+    <div class="lbl" id="rCourse"></div>
+    <div class="lbl" style="margin-top:8px">1-р жилийн баталгаатай хөнгөлөлт</div>
+    <div class="big" id="rDisc">¥0</div>
+    <div class="sub">1-р жилийн төлөх дүн: <b id="rPay"></b></div>
+    <div class="sub">2-р жилийн төлөх дүн: <b id="rPay2"></b></div>
+    <div class="sub" style="margin-top:6px;font-size:16px">2 жилийн нийт: <b id="rTotal" style="color:var(--maya-teal)"></b></div>
+  </div>
+
+  <div class="card">
+    <div class="sect">1-р жил <span class="tag ok">нөхцөл хангавал олгоно</span></div>
+    <div id="rList"></div>
+  </div>
+
+  <div class="card">
+    <div class="sect">2-р жил</div>
+    <div id="rList2"></div>
+  </div>
+
+  <div class="card">
+    <div class="sect">Нэмэлт боломж <span class="tag maybe">баталгаагүй</span></div>
+    <p class="muted">Доорх дүнг дээрх төлөх дүнгээс хасаагүй.</p>
+    <div id="rMaybe"></div>
+  </div>
+
+
+  <div class="lead" id="lead">
+    <h3>Дэлгэрэнгүй мэдээлэл авах</h3>
+    <p>Хаягаа үлдээвэл таны нөхцөлөөр тооцоолсон дэлгэрэнгүй мэдээллийг Золо монгол хэлээр явуулна.</p>
+    <form id="lf" novalidate>
+      <label for="lName">Овог нэр <small>(заавал биш)</small></label>
+      <input type="text" id="lName" autocomplete="name">
+      <label for="lContact">И-мэйл хаяг эсвэл Facebook линк <small>(заавал)</small></label>
+      <input type="text" id="lContact" autocomplete="email" inputmode="email">
+      <div class="err" id="lErr">И-мэйл хаяг эсвэл Facebook линкээ оруулна уу.</div>
+      <label for="lPhone">Утасны дугаар <small>(заавал биш)</small></label>
+      <input type="tel" id="lPhone" autocomplete="tel">
+      <label for="lSchool">Япон хэлний сургуулийн нэр <small>(заавал биш)</small></label>
+      <input type="text" id="lSchool">
+      <button class="btn" type="submit" id="lBtn">Мэдээлэл авах</button>
+      <p class="consent">Илгээснээр MAYA MIRAI-аас элсэлтийн талаар тантай холбогдохыг зөвшөөрнө. Мэдээллийг өөр зорилгоор ашиглахгүй.</p>
+    </form>
+    <div class="done" id="lDone">Баярлалаа! Удахгүй тантай холбогдоно. 😊</div>
+  </div>
+
+  <div class="cta">
+    <h3>Дэлгэрэнгүй ярилцъя</h3>
+    <p>Энэ бол урьдчилсан тооцоо. Таны нөхцөлөөр яг хэд болохыг монгол хэлээр тайлбарлаж өгье.</p>
+    <div class="links">
+      <a href="https://www.instagram.com/mayamirai9/" target="_blank" rel="noopener">Instagram-аар бичих <span>@mayamirai9 →</span></a>
+      <a href="https://www.facebook.com/profile.php?id=100091641070145" target="_blank" rel="noopener">Facebook-ээр бичих <span>Japan Study Guide →</span></a>
+      <a href="tel:08012753547">Утас <span>080-1275-3547 (Золо)</span></a>
+      <a href="mailto:z.tsogkhuu@mayass.com">И-мэйл <span>z.tsogkhuu@mayass.com</span></a>
+    </div>
+    <button class="btn ghost" type="button" id="copyBtn">Тооцоогоо хуулах (DM-д илгээхэд)</button>
+    <div class="copied" id="copied">Хуулагдлаа. DM-дээ буулгаад илгээгээрэй.</div>
+  </div>
+
+  <button class="btn ghost" type="button" id="againBtn">Дахин тооцоолох</button>
+</section>
+
+<footer>
+  Энэ тооцоолуур нь <span id="fYear">2027</span> оны элсэлтийн урьдчилсан тооцоо бөгөөд төлбөрийн нэхэмжлэх, тэтгэлгийн өргөдөл биш. Хөнгөлөлт бүрийг бичиг баримтаар шалгаж олгоно. Хугацаа нь дууссан эрт өргөдлийн хөнгөлөлтийг автоматаар тооцохгүй. Төлбөрийн дүн: MAYA学園 <span id="fSrc">募集要項2027</span>. Хамгийн сүүлийн нөхцөлийг сургуулийн элсэлтийн журмаас шалгана уу.<br>
+  MAYA MIRAI · Гадаад оюутны элсэлт · Шинжүкү, Токио<br>
+  <a href="https://maya-mirai.github.io/shimane.it-design.college/" target="_blank" rel="noopener" style="color:var(--deep-teal)">Коллежийн танилцуулга →</a>
+</footer>
+</div>
+
+<script>
+(function(){
+  // ===== CONFIG: жил бүр зөвхөн энэ хэсгийг шинэчилнэ (募集要項-ээс) =====
+  const CONFIG = {
+    year: 2027,
+    source: "募集要項2027",
+    tuition:  { it: 1020000, design: 1110000 },   // 1-р жил
+    tuition2: { it: 855000,  design: 945000 },    // 2-р жил
+    extra: {
+      it: "Windows PC, программ (~¥100,000), сурах хэрэглэгдэхүүн жилд ~¥20,000",
+      design: "MacBook, Adobe CC (~¥200,000), сурах хэрэглэгдэхүүн жилд ~¥50,000"
+    },
+    jlpt:   { n1: 200000, n2: 100000 },           // 1-р жил, ирц 95%+
+    jlpt2:  { n1: 100000, n2: 50000 },            // 2-р жил, 1-р жилдээ тэнцвэл
+    visit:  { campus: 100000, online: 50000 },
+    rec: 50000,                                   // 指定校推薦 (эрт өргөдөлтэй хослохгүй)
+    friend: { one: 50000, max: 100000 },
+    // 願書早期提出 (入学金減免): хугацаа дууссан ээлж автоматаар идэвхгүй болно
+    early: [
+      { label: "1-р ээлж", from: "2026-09-28", to: "2026-10-06", amount: 50000 },
+      { label: "2-р ээлж", from: "2026-10-26", to: "2026-11-06", amount: 30000 }
+    ],
+    local: "~¥150,000",                           // 奥出雲町奨学金 (төсвөөс хамаарна)
+    maya: "¥100,000–300,000"                      // MAYA тэтгэлэг (2-р курст)
+  };
+  const TUITION = CONFIG.tuition, TUITION2 = CONFIG.tuition2, EXTRA = CONFIG.extra;
+  const NAMES = { it: "IT бизнесийн анги", design: "Визуал дизайны анги" };
+  const yen = n => "¥" + n.toLocaleString("en-US");
+  const f = document.getElementById("f");
+  const val = n => (f.querySelector('input[name="'+n+'"]:checked')||{}).value;
+  let lastText = "";
+
+  document.getElementById("eyebrow").textContent = CONFIG.year + " оны элсэлт";
+  document.getElementById("fYear").textContent = CONFIG.year;
+  document.getElementById("fSrc").textContent = CONFIG.source;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const md = d => { const x = new Date(d+"T00:00:00"); return (x.getMonth()+1)+"/"+x.getDate(); };
+  (function renderEarly(){
+    let html = '<label class="opt"><input type="radio" name="early" value="-1" checked><span>Ердийн хугацаанд</span></label>';
+    let open = 0;
+    CONFIG.early.forEach((p,i)=>{
+      const ended = new Date(p.to+"T23:59:59") < today;
+      if (!ended) open++;
+      html += '<label class="opt"><input type="radio" name="early" value="'+i+'"'+(ended?' disabled':'')+'><span'+(ended?' style="opacity:.45;text-decoration:line-through"':'')+'>'+p.label+' '+md(p.from)+'–'+md(p.to)+' (−'+yen(p.amount)+')'+(ended?' · дууссан':'')+'</span></label>';
+    });
+    document.getElementById("earlyOpts").innerHTML = html;
+    document.getElementById("earlyHint").textContent = open
+      ? "Элсэлтийн хураамжаас хасна. Сургуулийн зөвлөмжтэй хамт авах боломжгүй (их дүнтэйг нь тооцно)."
+      : "Энэ жилийн эрт өргөдлийн хугацаа дууссан.";
+  })();
+
+  function syncWarn(){
+    const show = val("jlpt") !== "none" && val("att") === "no";
+    document.getElementById("attWarn").style.display = show ? "block" : "none";
+  }
+  f.addEventListener("change", syncWarn);
+
+  function row(label, amount, cls){
+    return '<div class="row'+(cls?' '+cls:'')+'"><div>'+label+'</div><div class="v'+(amount<0?' minus':'')+'">'+(amount<0?'−':'')+yen(Math.abs(amount))+'</div></div>';
+  }
+
+  f.addEventListener("submit", function(e){
+    e.preventDefault();
+    const c = val("course"), base = TUITION[c];
+    const items = [];
+    const att = val("att") === "yes";
+    if (att && val("jlpt") === "n1") items.push(["JLPT N1 (ирц 95%+)", CONFIG.jlpt.n1]);
+    if (att && val("jlpt") === "n2") items.push(["JLPT N2 (ирц 95%+)", CONFIG.jlpt.n2]);
+    if (val("visit") === "campus") items.push(["Сургууль дээр биечлэн танилцсан", CONFIG.visit.campus]);
+    if (val("visit") === "online") items.push(["Онлайн танилцуулгад оролцсон", CONFIG.visit.online]);
+    const ei = parseInt(val("early") || "-1", 10);
+    const earlyAmt = ei >= 0 ? CONFIG.early[ei].amount : 0;
+    const recAmt = val("rec") === "yes" ? CONFIG.rec : 0;
+    if (earlyAmt || recAmt) {
+      if (recAmt >= earlyAmt) items.push(["Хэлний сургуулийн зөвлөмж" + (earlyAmt ? " (эрт өргөдөлтэй хослохгүй)" : ""), recAmt]);
+      else items.push(["Эрт өргөдөл · " + CONFIG.early[ei].label + (recAmt ? " (зөвлөмжтэй хослохгүй)" : ""), earlyAmt]);
+    }
+    if (val("friend") === "1") items.push(["Найзтайгаа хамт элсэх (1 найз)", CONFIG.friend.one]);
+    if (val("friend") === "2") items.push(["Найзуудтайгаа хамт элсэх (2+)", CONFIG.friend.max]);
+
+    const disc = items.reduce((s,i)=>s+i[1],0);
+    const pay = base - disc;
+
+    document.getElementById("rCourse").textContent = NAMES[c] + " · 1-р жилийн төлбөр " + yen(base);
+    document.getElementById("rDisc").textContent = "−" + yen(disc);
+    document.getElementById("rPay").textContent = yen(pay);
+
+    let h = row("1-р жилийн төлбөр", base);
+    if (items.length) items.forEach(i => h += row(i[0], -i[1]));
+    else h += '<div class="empty">Одоогоор тохирох хөнгөлөлт алга. Сургуультай танилцах (онлайнаар ч болно) нь хамгийн хялбар арга. ¥50,000–100,000 хасагдана.</div>';
+    h += row("Төлөх дүн (тооцоо)", pay, "total");
+    document.getElementById("rList").innerHTML = h;
+    const base2 = TUITION2[c];
+    const g = val("goal");
+    const d2 = g==="n1" ? CONFIG.jlpt2.n1 : g==="n2" ? CONFIG.jlpt2.n2 : 0;
+    const pay2 = base2 - d2;
+    let h2 = row("2-р жилийн төлбөр", base2);
+    if (d2) h2 += row("1-р жилдээ " + g.toUpperCase() + " тэнцвэл (ирц 95%+)", -d2);
+    h2 += row("Төлөх дүн (тооцоо)", pay2, "total");
+    h2 += '<p class="muted" style="margin-top:8px">Нэмэлт зардал: ' + EXTRA[c] + ' (өөрөө бэлдэнэ).</p>';
+    document.getElementById("rList2").innerHTML = h2;
+    document.getElementById("rPay2").textContent = yen(pay2);
+    document.getElementById("rTotal").textContent = yen(pay + pay2);
+
+    let m = "";
+    if (val("local") === "yes") m += '<div class="row"><div>Окуизумо хотын тэтгэлэг<br><span class="muted">Окуизумод амьдардаг, сурлага сайн оюутанд. Дүн, тоо нь хотын төсвөөс хамаарна, элссэний дараа 4-р сард шалгаруулна. Буцааж төлөхгүй.</span></div><div class="v">'+CONFIG.local+'</div></div>';
+    m += '<div class="row"><div>MAYA тэтгэлэг (2-р курст)<br><span class="muted">1-р курсын дүн, ирц, идэвхээр шалгаруулж, 2-р курсын төлбөрөөс хасна.</span></div><div class="v">'+CONFIG.maya+'</div></div>';
+    if (val("senpai") === "yes") m += '<div class="row"><div>Ахлах курсийн санал (先輩紹介)<br><span class="muted">Бичиг баримтын шалгалтад давуу эрх. Мөнгөн хөнгөлөлт биш.</span></div><div class="v">✓</div></div>';
+    document.getElementById("rMaybe").innerHTML = m;
+
+    lastText = "Шиманэ IT Дизайн Коллеж · хөнгөлөлтийн тооцоо\n" + NAMES[c] + "\n" +
+      items.map(i => "- " + i[0] + ": −" + yen(i[1])).join("\n") +
+      (items.length ? "\n" : "- Хөнгөлөлт сонгоогүй\n") +
+      "1-р жил: " + yen(pay) + " · 2-р жил: " + yen(pay2) + " · Нийт: " + yen(pay+pay2) +
+      (val("local")==="yes" ? "\nОкуизумо хотын тэтгэлэг сонирхож байна" : "") +
+      "\nДэлгэрэнгүй мэдээлэл авмаар байна.";
+
+    f.style.display = "none";
+    const r = document.getElementById("result");
+    r.style.display = "block";
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+
+  // ---- lead form → Google Form ----
+  const GF = "https://docs.google.com/forms/d/e/1FAIpQLSclDc4uu9AidfvfHNPHLkV-tIvhAXcUU75D5QS2Mlh8jqiCYQ/";
+  const E = { name:"entry.1000057", contact:"entry.1829270154", phone:"entry.1948843751", school:"entry.1901755271" };
+  const lf = document.getElementById("lf");
+  lf.addEventListener("submit", function(e){
+    e.preventDefault();
+    const v = id => document.getElementById(id).value.trim();
+    const contact = v("lContact");
+    if (!contact){ document.getElementById("lErr").style.display="block"; return; }
+    document.getElementById("lErr").style.display="none";
+    const p = new URLSearchParams();
+    p.set(E.name, v("lName")); p.set(E.contact, contact); p.set(E.phone, v("lPhone")); p.set(E.school, v("lSchool"));
+    if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)) p.set("emailAddress", contact);
+    const finish = () => { lf.style.display="none"; document.getElementById("lDone").style.display="block"; };
+    const openPrefilled = () => {
+      const q = new URLSearchParams(); q.set("usp","pp_url");
+      for (const [k,val] of p) if (val && k!=="emailAddress") q.set(k,val);
+      const a = document.createElement("a"); a.href = GF + "viewform?" + q.toString(); a.target="_blank"; a.rel="noopener";
+      document.body.appendChild(a); a.click(); a.remove();
+      document.getElementById("lDone").textContent = "Нээгдсэн Google Form дээр «Илгээх» (送信) товчийг дарснаар мэдээлэл илгээгдэнэ.";
+      finish();
+    };
+    // Direct submit works on your own site (e.g. GitHub Pages); elsewhere open the prefilled form.
+    if (/github\.io$|mayamirai\.jp$/.test(location.hostname)) {
+      document.getElementById("lBtn").disabled = true;
+      fetch(GF + "formResponse", {method:"POST", mode:"no-cors", body:p}).then(finish).catch(openPrefilled);
+    } else {
+      openPrefilled();
+    }
+  });
+
+  document.getElementById("againBtn").addEventListener("click", function(){
+    document.getElementById("result").style.display = "none";
+    f.style.display = "block";
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", function(){
+    const ok = () => { document.getElementById("copied").style.display = "block"; };
+    try {
+      navigator.clipboard.writeText(lastText).then(ok).catch(fallback);
+    } catch(e){ fallback(); }
+    function fallback(){
+      const t = document.createElement("textarea"); t.value = lastText; document.body.appendChild(t); t.select();
+      try { document.execCommand("copy"); ok(); } catch(e){}
+      t.remove();
+    }
+  });
+})();
+</script>
+</body>
+</html>
