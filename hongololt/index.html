@@ -536,7 +536,12 @@
     prev.style.visibility = cur ? "visible" : "hidden";
     document.getElementById("nextBtn").textContent = cur === steps.length - 1 ? L("Тооцоолох →","計算する →") : L("Дараах →","次へ →");
     document.getElementById("backTop").textContent = L("← Буцаж засах","← 戻って修正する");
-    if (scroll) window.scrollTo({top:0, behavior:"smooth"});
+    if (scroll) {
+      const ph = cur < firstY2 ? phases[0] : phases[1];
+      const el = (ph && ph.offsetParent) ? ph : steps[cur];
+      const y = el.getBoundingClientRect().top + window.scrollY - 64;
+      window.scrollTo({top: Math.max(0, y), behavior:"smooth"});
+    }
   }
   document.getElementById("prevBtn").addEventListener("click", () => show(cur - 1, true));
   f.addEventListener("submit", function(e){
@@ -545,8 +550,8 @@
     compute();
     document.getElementById("mBar").style.width = "100%";
     f.style.display = "none";
-    document.getElementById("result").style.display = "block";
-    window.scrollTo({top:0, behavior:"smooth"});
+    const res = document.getElementById("result"); res.style.display = "block";
+    window.scrollTo({top: Math.max(0, res.getBoundingClientRect().top + window.scrollY - 64), behavior:"smooth"});
   });
   function backToForm(step){
     document.getElementById("result").style.display = "none";
