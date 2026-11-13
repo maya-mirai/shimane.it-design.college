@@ -246,16 +246,16 @@
       <label class="opt"><input type="radio" name="rec" value="yes"><span data-ja="はい">Тийм</span></label>
     </div>
     <p class="hint" data-ja="本校と提携している日本語学校から推薦を受けた学生が対象です。">Манай сургуультай хамтын ажиллагаатай Япон хэлний сургуулиас «санал болгож буй оюутан» гэсэн тодорхойлолттой бол хамрагдана.</p>
-    <div class="q" data-ja="友達や先輩からの紹介はありますか？（友達紹介）">Таныг найз эсвэл ахлах курсийн оюутан танилцуулсан уу? (友達紹介)</div>
+    <div class="q" data-ja="入学時に友人と一緒に入学しますか？（友達紹介）">Найзтайгаа хамт элсэх үү? (友達紹介)</div>
     <div class="opts">
       <label class="opt"><input type="radio" name="ref" value="no" checked><span data-ja="いいえ">Үгүй</span></label>
       <label class="opt"><input type="radio" name="ref" value="yes"><span data-ja="はい">Тийм</span></label>
     </div>
     <div class="refbox" id="refBox">
-      <label for="refName" data-ja="紹介者のお名前">Танилцуулсан хүний нэр</label>
-      <input type="text" id="refName" autocomplete="off" data-ph-mn="Жишээ: Бат-Эрдэнэ" data-ph-ja="例：バトエルデネ" placeholder="Жишээ: Бат-Эрдэнэ">
+      <label for="refName" data-ja="一緒に入学する友人の氏名（ローマ字）">Хамт элсэх найзын овог нэр (латинаар)</label>
+      <input type="text" id="refName" autocomplete="off" data-ph-mn="Жишээ: BATAA Bat-Erdene" data-ph-ja="例：BATAA Bat-Erdene" placeholder="Жишээ: BATAA Bat-Erdene">
     </div>
-    <p class="hint" data-ja="紹介した人も、紹介された人も、それぞれ1年次の学費から¥50,000減免されます（1人が紹介できるのは2名まで）。">Танилцуулсан хүн, танилцуулагдсан хүн хоёулаа 1-р курсийн төлбөрөөсөө ¥50,000 хөнгөлөгдөнө (нэг хүн 2 хүн хүртэл танилцуулж болно).</p>
+    <p class="hint" data-ja="入学時に友人と一緒に入学する場合、それぞれ1年次の学費から¥50,000減免されます（2名まで）。氏名はパスポートと同じローマ字で入力してください。">Элсэхдээ найзтайгаа хамт элсвэл хүн бүр 1-р курсийн төлбөрөөсөө ¥50,000 хөнгөлөгдөнө (2 хүн хүртэл). Овог нэрийг паспорттой адил латинаар бичнэ үү.</p>
   </div>
 
   <div class="card c5">
@@ -319,7 +319,7 @@
   </div>
 
   <div class="card">
-    <div class="sect" data-ja="その他の可能性 &lt;span class=&quot;tag maybe&quot;&gt;未確定&lt;/span&gt;">Нэмэлт боломж <span class="tag maybe">баталгаагүй</span></div>
+    <div class="sect" data-ja="その他の可能性 &lt;span class=&quot;tag maybe&quot;&gt;選考あり&lt;/span&gt;">Нэмэлт боломж <span class="tag maybe">шалгаруулалттай</span></div>
     <p class="muted" data-ja="以下の金額は、上記のお支払額から差し引いていません。">Доорх дүнг дээрх төлөх дүнгээс хасаагүй.</p>
     <div id="rMaybe"></div>
   </div>
@@ -329,8 +329,8 @@
     <h3 data-ja="詳しい情報を受け取る">Дэлгэрэнгүй мэдээлэл авах</h3>
     <p data-ja="連絡先をご入力いただければ、条件に合わせた詳しい情報を担当者からお送りします。">Хаягаа үлдээвэл таны нөхцөлөөр тооцоолсон дэлгэрэнгүй мэдээллийг Золо монгол хэлээр явуулна.</p>
     <form id="lf" novalidate>
-      <label for="lName" data-ja="氏名 &lt;small&gt;（任意）&lt;/small&gt;">Овог нэр <small>(заавал биш)</small></label>
-      <input type="text" id="lName" autocomplete="name">
+      <label for="lName" data-ja="氏名（ローマ字） &lt;small&gt;（任意）&lt;/small&gt;">Овог нэр (латинаар) <small>(заавал биш)</small></label>
+      <input type="text" id="lName" autocomplete="name" placeholder="BATAA Bat-Erdene">
       <label for="lContact" data-ja="メールアドレスまたはFacebookのリンク &lt;small&gt;（必須）&lt;/small&gt;">И-мэйл хаяг эсвэл Facebook линк <small>(заавал)</small></label>
       <input type="text" id="lContact" autocomplete="email" inputmode="email">
       <div class="err" id="lErr" data-ja="メールアドレスまたはFacebookのリンクを入力してください。">И-мэйл хаяг эсвэл Facebook линкээ оруулна уу.</div>
@@ -463,7 +463,7 @@
     if (val("visit") === "campus") items.push([L("Сургууль дээр биечлэн танилцсан","来校見学"), CONFIG.visit.campus]);
     if (val("visit") === "online") items.push([L("Онлайн танилцуулгад оролцсон","オンライン説明会参加"), CONFIG.visit.online]);
     const refName = (document.getElementById("refName").value || "").trim();
-    if (val("ref") === "yes") items.push([L("Найз танилцуулсан (友達紹介)","友達紹介") + (refName ? " · " + refName : ""), CONFIG.referred]);
+    if (val("ref") === "yes") items.push([L("Найзтайгаа хамт элссэн (友達紹介)","友達紹介（一緒に入学）") + (refName ? " · " + refName : ""), CONFIG.referred]);
     const ei = parseInt(val("early") || "-1", 10);
     const earlyAmt = ei >= 0 ? CONFIG.early[ei].amount : 0;
     const recAmt = val("rec") === "yes" ? CONFIG.rec : 0;
@@ -500,13 +500,13 @@
     document.getElementById("rDisc").textContent = "−" + yen(save);
     const loc = document.getElementById("rLocal");
     if (val("local") === "yes") {
-      loc.innerHTML = L('＋ Орон нутгийн тэтгэлэг <b>' + yen(CONFIG.local) + '</b> авбал нийт <b class="g">' + yen(save + CONFIG.local) + '</b> хэмнэнэ<br><span>Сүүлийн 3 жил өргөдөл гаргасан оюутнууд бүгд авсан</span>',
-                        '＋ 地域の奨学金 <b>' + yen(CONFIG.local) + '</b> を受けると、合計 <b class="g">' + yen(save + CONFIG.local) + '</b> お得<br><span>過去3年間、申請した学生は全員受給しています</span>');
+      loc.innerHTML = L('＋ Орон нутгийн тэтгэлэг <b>' + yen(CONFIG.local) + '</b> авбал нийт <b class="g">' + yen(save + CONFIG.local) + '</b> хэмнэнэ<br><span>Сүүлийн 3 жил өргөдөл гаргасан оюутнууд бүгд авсан · 5-р сард бүртгүүлж, 11-р сард дансанд орно</span>',
+                        '＋ 地域の奨学金 <b>' + yen(CONFIG.local) + '</b> を受けると、合計 <b class="g">' + yen(save + CONFIG.local) + '</b> お得<br><span>過去3年間、申請した学生は全員受給しています・5月申請、11月に口座へ振込</span>');
       loc.style.display = "block";
     } else { loc.style.display = "none"; }
 
     let m = "";
-    if (val("local") === "yes") m += '<div class="row"><div>'+L('Орон нутгийн тэтгэлэг<br><span class="muted">Тухайн орон нутагт 2 жил амьдарч суралцах нөхцөлтэй. Сүүлийн 3 жил өргөдөл гаргасан оюутнууд бүгд авсан. Элссэний дараа 4-р сард шалгаруулна. Буцааж төлөхгүй.</span>','地域の奨学金<br><span class="muted">その地域に2年間住んで通学することが条件です。過去3年間、申請した学生は全員受給しています。入学後の4月に選考。返済不要。</span>')+'</div><div class="v">'+yen(CONFIG.local)+'</div></div>';
+    if (val("local") === "yes") m += '<div class="row"><div>'+L('Орон нутгийн тэтгэлэг<br><span class="muted">Тухайн орон нутагт 2 жил амьдарч суралцах нөхцөлтэй. Сүүлийн 3 жил өргөдөл гаргасан оюутнууд бүгд авсан. 5-р сард бүртгүүлж, 11-р сард таны дансанд орно. Буцааж төлөхгүй.</span>','地域の奨学金<br><span class="muted">その地域に2年間住んで通学することが条件です。過去3年間、申請した学生は全員受給しています。5月に申請し、11月にご本人の口座に振り込まれます。返済不要。</span>')+'</div><div class="v">'+yen(CONFIG.local)+'</div></div>';
     m += '<div class="row"><div>'+L('MAYA тэтгэлэг (2-р курст)<br><span class="muted">1-р курсийн дүн, ирц, идэвхээр шалгаруулж, 2-р курсийн төлбөрөөс хасна.</span>','MAYA奨学金（2年次）<br><span class="muted">1年次の成績・出席・活動状況により選考し、2年次の学費から減免します。</span>')+'</div><div class="v">'+CONFIG.maya+'</div></div>';
     document.getElementById("rMaybe").innerHTML = m;
 
@@ -515,7 +515,7 @@
       (items.length ? "\n" : L("- Хөнгөлөлт сонгоогүй\n","- 減免なし\n")) +
       L("1-р курс: ","1年次：") + yen(pay) + L(" · 2-р курс: "," ・2年次：") + yen(pay2) + L(" · Нийт: "," ・合計：") + yen(pay+pay2) +
       (val("local")==="yes" ? L("\nОрон нутгийн тэтгэлэг сонирхож байна","\n地域の奨学金に関心あり") : "") +
-      (val("ref")==="yes" ? L("\nТанилцуулсан хүн: ","\n紹介者：") + (refName || L("(нэргүй)","（未記入）")) : "") +
+      (val("ref")==="yes" ? L("\nХамт элсэх найз: ","\n一緒に入学する友人：") + (refName || L("(нэргүй)","（未記入）")) : "") +
       L("\nДэлгэрэнгүй мэдээлэл авмаар байна.","\n詳しい情報を希望します。");
   }
 
@@ -591,7 +591,7 @@
     document.getElementById("lErr").style.display="none";
     const p = new URLSearchParams();
     p.set(E.name, v("lName")); p.set(E.contact, contact); p.set(E.phone, v("lPhone")); const rn = (document.getElementById("refName").value || "").trim();
-    const refTxt = val("ref") === "yes" ? ((v("lSchool") ? " / " : "") + "紹介者: " + (rn || "-")) : "";
+    const refTxt = val("ref") === "yes" ? ((v("lSchool") ? " / " : "") + "一緒に入学する友人: " + (rn || "-")) : "";
     p.set(E.school, v("lSchool") + refTxt);
     if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)) p.set("emailAddress", contact);
     const finish = () => { lf.style.display="none"; document.getElementById("lDone").style.display="block"; };
